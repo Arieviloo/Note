@@ -31854,7 +31854,13 @@ function (_Component) {
     }
 
     return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(App)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      notes: ["state 1", "state 2"]
+      notes: []
+    }, _this.handleAddNote = function (text) {
+      _this.setState(function (prevState) {
+        return {
+          notes: prevState.notes.concat(text)
+        };
+      });
     }, _temp));
   }
 
@@ -31863,7 +31869,9 @@ function (_Component) {
     value: function render() {
       return _react.default.createElement("div", {
         className: "container"
-      }, _react.default.createElement(NewNote, null), _react.default.createElement(NoteList, {
+      }, _react.default.createElement(NewNote, {
+        onAddNote: this.handleAddNote
+      }), _react.default.createElement(NoteList, {
         notes: this.state.notes
       }));
     }
@@ -31872,7 +31880,8 @@ function (_Component) {
   return App;
 }(_react.Component);
 
-var NewNote = function NewNote() {
+var NewNote = function NewNote(_ref) {
+  var onAddNote = _ref.onAddNote;
   return _react.default.createElement("div", {
     className: "newnote"
   }, _react.default.createElement("input", {
@@ -31880,12 +31889,17 @@ var NewNote = function NewNote() {
     name: "",
     id: "",
     className: "newnoteInput",
-    placeholder: "Digite sua nota ..."
+    placeholder: "Digite sua nota ...",
+    onKeyPress: function onKeyPress(event) {
+      {
+        event.key === "Enter" ? onAddNote(event.target.value) : null;
+      }
+    }
   }));
 };
 
-var NoteList = function NoteList(_ref) {
-  var notes = _ref.notes;
+var NoteList = function NoteList(_ref2) {
+  var notes = _ref2.notes;
   return _react.default.createElement("div", {
     className: "noteList"
   }, notes.map(function (note) {
@@ -31924,7 +31938,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57946" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58508" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

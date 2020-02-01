@@ -4,19 +4,25 @@ import "./app.scss";
 
 class App extends Component {
   state = {
-    notes: ["state 1", "state 2"]
+    notes: []
   };
+  handleAddNote = text => {
+    this.setState(prevState => ({
+      notes: prevState.notes.concat(text)
+    }));
+  };
+
   render() {
     return (
       <div className="container">
-        <NewNote />
+        <NewNote onAddNote={this.handleAddNote} />
         <NoteList notes={this.state.notes} />
       </div>
     );
   }
 }
 
-const NewNote = () => (
+const NewNote = ({ onAddNote }) => (
   <div className="newnote">
     <input
       type="text"
@@ -24,6 +30,11 @@ const NewNote = () => (
       id=""
       className="newnoteInput"
       placeholder="Digite sua nota ..."
+      onKeyPress={event => {
+        {
+          event.key === "Enter" ? onAddNote(event.target.value) : null;
+        }
+      }}
     />
   </div>
 );
