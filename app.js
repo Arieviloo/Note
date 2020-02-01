@@ -1,13 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
 import ReactDom from "react-dom";
 import "./app.scss";
 
-const App = () => (
-  <div className="container">
-    <NewNote />
-    <NoteList />
-  </div>
-);
+class App extends Component {
+  state = {
+    notes: ["state 1", "state 2"]
+  };
+  render() {
+    return (
+      <div className="container">
+        <NewNote />
+        <NoteList notes={this.state.notes} />
+      </div>
+    );
+  }
+}
 
 const NewNote = () => (
   <div className="newnote">
@@ -21,11 +28,11 @@ const NewNote = () => (
   </div>
 );
 
-const NoteList = () => (
+const NoteList = ({ notes }) => (
   <div className="noteList">
-    <div className="note">1</div>
-    <div className="note">2</div>
-    <div className="note">3 </div>
+    {notes.map(note => (
+      <div className="note">{note}</div>
+    ))}
   </div>
 );
 
